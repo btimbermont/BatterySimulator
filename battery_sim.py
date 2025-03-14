@@ -1,5 +1,5 @@
-def kwh_to_ws(kwh: int) -> int:
-    return kwh * 1000 * 3600
+def kwh_to_ws(kwh: float) -> int:
+    return int(kwh * 1000 * 3600)
 
 
 def ws_to_kwh(ws: int) -> float:
@@ -8,7 +8,7 @@ def ws_to_kwh(ws: int) -> float:
 
 class Battery:
 
-    def __init__(self, capacity: int, max_charge_rate: int, max_discharge_rate: int, efficiency: float):
+    def __init__(self, capacity: float, max_charge_rate: int, max_discharge_rate: int, efficiency: float):
         self._capacity = kwh_to_ws(capacity)
         self._max_charge_rate = max_charge_rate
         self._max_discharge_rate = max_discharge_rate
@@ -51,11 +51,16 @@ class Battery:
         return capacity_given / asked_capacity
 
     def __str__(self):
-        return f'Battery(cap: {ws_to_kwh(self._capacity)} kWh, charge: {self.current_charge_in_percentage:.2f}% ({self.current_charge_in_kwh} kWh))'
+        return (f'Battery(total capacity: {ws_to_kwh(self._capacity)} kWh, '
+                f'current charge: {self.current_charge_in_percentage:.2f}% ({self.current_charge_in_kwh} kWh))')
 
 
-if __name__ == '__main__':
-    batt = Battery(1, 500, 500, 0.8)
-    print(batt)
-    power_used = batt.charge(1000, 7200)
-    print(batt)
+def home_wizard_battery(number_of_batteries: int = 1, own_group: bool = False):
+    capacity = number_of_batteries * 2.7
+    max_charge_rate = 800 * number_of_batteries
+    efficiency = 0.8
+    if own_group:
+        max_discharge_rate = 800 * number_of_batteries
+    else:
+        max_discharge_rate = 800
+    return Battery(capacity, max_charge_rate, max_discharge_rate, efficiency)
