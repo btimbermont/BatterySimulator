@@ -4,6 +4,15 @@ from typing import List, Dict
 
 from battery_sim import Battery, ws_to_kwh, home_wizard_battery
 
+BATTERIES_TO_SIMULATE = {
+    'Saldering': Battery(100000, 100000, 100000, 1.0),  # Saldering acts as a perfect infinite battery
+    'HomeWizard x 1': home_wizard_battery(),
+    'HomeWizard x 2': home_wizard_battery(2),
+    'HomeWizard x 2 (eigen groep)': home_wizard_battery(2, True),
+    'HomeWizard x 3': home_wizard_battery(3),
+    'HomeWizard x 3 (eigen groep)': home_wizard_battery(3, True)
+}
+
 
 @dataclass
 class PowerDatapoint:
@@ -75,12 +84,4 @@ def simulate_battery(batteries: Dict[str, Battery], mbc_files: List[str]):
 
 if __name__ == '__main__':
     mbc_files = [f'input/{f}' for f in os.listdir('input')]
-    batteries = {
-        'Saldering': Battery(100000, 100000, 100000, 1.0),
-        'HomeWizard x 1': home_wizard_battery(),
-        'HomeWizard x 2': home_wizard_battery(2),
-        'HomeWizard x 2 (eigen groep)': home_wizard_battery(2, True),
-        'HomeWizard x 3': home_wizard_battery(3),
-        'HomeWizard x 3 (eigen groep)': home_wizard_battery(3, True)
-    }
-    simulate_battery(batteries, mbc_files)
+    simulate_battery(BATTERIES_TO_SIMULATE, mbc_files)
