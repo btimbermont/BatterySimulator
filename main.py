@@ -2,7 +2,7 @@ import os
 from dataclasses import dataclass
 from typing import List, Dict
 
-from battery_sim import Battery, ws_to_kwh, home_wizard_battery
+from battery_sim import Battery, ws_to_kwh, home_wizard_battery, marstek_venus
 
 BATTERIES_TO_SIMULATE = {
     'Saldering': Battery(100000, 100000, 100000, 1.0),  # Saldering acts as a perfect infinite battery
@@ -10,7 +10,9 @@ BATTERIES_TO_SIMULATE = {
     'HomeWizard x 2': home_wizard_battery(2),
     'HomeWizard x 2 (eigen groep)': home_wizard_battery(2, True),
     'HomeWizard x 3': home_wizard_battery(3),
-    'HomeWizard x 3 (eigen groep)': home_wizard_battery(3, True)
+    'HomeWizard x 3 (eigen groep)': home_wizard_battery(3, True),
+    'Marstek Venus': marstek_venus(False),
+    'Marstek Venus (eigen groep)': marstek_venus(True),
 }
 
 
