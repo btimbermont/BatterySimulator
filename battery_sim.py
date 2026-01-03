@@ -65,8 +65,10 @@ def home_wizard_battery(number_of_batteries: int = 1, own_group: bool = False):
         max_discharge_rate = 800
     return Battery(capacity, max_charge_rate, max_discharge_rate, efficiency)
 
-def marstek_venus(unlocked: bool = False):
+
+def marstek_venus(unlocked: bool = False, number_of_batteries: int = 1):
+    capacity = 5.12 * number_of_batteries
     if unlocked:
-        return Battery(5.12, 2500, 2500, 0.8)
+        return Battery(capacity, 2500, 2500, 0.8)
     else:
-        return Battery(5.12, 2500, 800, 0.8)
+        return Battery(capacity, 2500, 800, 0.8)

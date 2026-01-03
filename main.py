@@ -13,6 +13,7 @@ BATTERIES_TO_SIMULATE = {
     'HomeWizard x 3 (eigen groep)': home_wizard_battery(3, True),
     'Marstek Venus': marstek_venus(False),
     'Marstek Venus (eigen groep)': marstek_venus(True),
+    'Marstek Venus X2 (eigen groep)': marstek_venus(True,2),
 }
 
 
@@ -85,5 +86,6 @@ def simulate_battery(batteries: Dict[str, Battery], mbc_files: List[str]):
 
 
 if __name__ == '__main__':
-    mbc_files = [f'input/{f}' for f in os.listdir('input')]
+    input_dir = 'input_2025'
+    mbc_files = [f'{input_dir}/{f}' for f in os.listdir(input_dir)]
     simulate_battery(BATTERIES_TO_SIMULATE, mbc_files)
